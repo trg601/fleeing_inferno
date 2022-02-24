@@ -13,7 +13,7 @@ public class HitBrick : MonoBehaviour
     private GameManagerScript manager;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         brickSprite = GetComponent<SpriteRenderer>();
         manager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
@@ -24,8 +24,6 @@ public class HitBrick : MonoBehaviour
     void Update()
     {
         if (timer > 0) timer--;
-
-        
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -36,10 +34,21 @@ public class HitBrick : MonoBehaviour
                 brickSprite.sprite = phases[numberOfHits];
 
             numberOfHits++;
+            
+            //for special brick types
+            onHit(other, numberOfHits);
+
             if (numberOfHits >= maxHits) {
-                manager.destroyBrick();
-                Destroy(this.gameObject);
+                destroy();
             }
         }
+    }
+
+    public void destroy() {
+        manager.destroyBrick();
+        Destroy(this.gameObject);
+    }
+
+    public virtual void onHit(Collision2D other, int numberOfHits) {
     }
 }

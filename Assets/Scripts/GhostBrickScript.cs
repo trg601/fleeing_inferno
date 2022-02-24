@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GhostBrickScript : MonoBehaviour
 {
-    int time = 0;
+    private float time = 0;
+    private float timescale = 0.7f;
     private SpriteRenderer brickSprite;
     private BoxCollider2D box;
 
@@ -18,10 +19,12 @@ public class GhostBrickScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time++;
-        float alpha = (Mathf.Sin(time / 200f) + 1)/2;
+        time += timescale * Time.deltaTime;
+        if (time > 5000f) time -= 5000f;
+
+        float alpha = (Mathf.Sin(time) + 1) / 2;
         brickSprite.color = new Color(1f, 1f, 1f, alpha);
-        if (alpha < 0.6) box.isTrigger = true;
+        if (alpha < 0.6f) box.isTrigger = true;
         else box.isTrigger = false;
     }
 }
