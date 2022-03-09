@@ -21,6 +21,10 @@ public class ButtonClick : MonoBehaviour
         SceneManager.LoadScene("Level1");
     }
 
+    public void ClickHowTo() {
+        SceneManager.LoadScene("HowToPlay");
+    }
+
     public void ClickQuit() {
         Application.Quit();
     }

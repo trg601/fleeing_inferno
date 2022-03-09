@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class LivingBrickScript : HitBrick
 {
-    private List<string> bricks;
     public GameObject livingBrickPrefab;
+    private Sprite originalSprite;
 
     public override void Start()
     {
         base.Start();
+        originalSprite = GetComponent<SpriteRenderer>().sprite;
     }
 
     public override void onHit(Collision2D other, int numberOfHits)
@@ -20,9 +21,9 @@ public class LivingBrickScript : HitBrick
             if (!neighbors[i].gameObject) continue;
             GameObject neighbor = neighbors[i].gameObject;
             if (neighbor.CompareTag("infectableBrick")) {
-                Instantiate(livingBrickPrefab, neighbor.transform.position, neighbor.transform.rotation);
+                GameObject b = Instantiate(livingBrickPrefab, neighbor.transform.position, neighbor.transform.rotation);
                 neighbor.GetComponent<HitBrick>().destroy();
-                //bricks.Add(neighbor.name);
+                b.GetComponent<SpriteRenderer>().sprite =  originalSprite;
             }
         }
     }

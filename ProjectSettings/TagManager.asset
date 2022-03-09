@@ -6,6 +6,12 @@ TagManager:
   tags:
   - defeat
   - infectableBrick
+  - powerUp
+  - Brick
+  - magnetTarget
+  - ball
+  - paddle
+  - wall
   layers:
   - Default
   - TransparentFX
